@@ -1,20 +1,60 @@
-# Senior-Design For CS179J
-
-[![Build Status](https://travis-ci.org/mrthomaschin/CS179J-Team3.svg?branch=master)](https://travis-ci.org/mrthomaschin/CS179J-Team3)
+# R'Mailbox - UCR Spring 2020 Senior Design Project
 
 ![License](http://img.shields.io/github/license/mrthomaschin/CS179J-Team3)
 
+<img src="https://user-images.githubusercontent.com/22509729/119739432-159cac00-be37-11eb-827e-dae3f5d5c7ae.png" width="400" /> <img src="https://user-images.githubusercontent.com/22509729/119739411-0ddd0780-be37-11eb-8a68-b3327f03c319.png" width="500" /> 
+![team3](https://user-images.githubusercontent.com/22509729/119741248-2b5fa080-be3a-11eb-9956-410119fca1cd.png)
 
-## Project Desicription
+*Note: This project was developed at the start of the COVID 19 pandemic when our university was closed down. As such, we had to take our pictures and demo videos in a living room. Sorry!*
 
-The project that we are proposing for this quarter is the R’Mailbox. With most packages and mail being left outside with no security, mail theft has been at an all-time high, with 1.7 million packages stolen every day in the U.S (Source: CNBC). Security cameras do add some level of security, but do not physically protect. We aim to solve this problem with our IoT mailbox. In a nutshell, our mailbox mimics an “Amazon Locker” designed for home use. It is a “smart”, secure container that can be used to send/receive mail and packages. Users will be able to keep track of their incoming and outgoing mail remotely.
+<br>
 
-Powered by a dual-microcontroller setup (Atmega1284 and Raspberry Pi 3 B+), The R’Mailbox adds many quality of life improvements over a traditional mailbox. It has 2 lockable compartments for standard mail (envelopes, newsletters, etc.) and packages, which utilize IR sensors to detect when incoming mail is inside. Once something is placed inside the compartments, the mailbox locks itself and sends a notification to the owner’s phone via text message. We would also like to add remote cloud service integration for smarter notifications and multi-device connection as well.
+## Demo Video
 
-The compartment doors and locks are automated using servos. The mailbox will also have a servo to control a “Mailbox flag”. When the owner specifies the mail inside the compartment is outgoing, the flag will rise. When the IR sensor detects that the mail has been removed, the flag will go back down. This flag will also determine if the compartment should be locked while something is in it, i.e unlocked for outgoing, locked for incoming.
+[Link](https://youtube.com)
 
-There will be a slot where postal services can insert mail. For bigger packages, the larger compartment will remain unlocked until a package is placed inside and the door is shut. After the R’Mailbox locks, it has a few security/anti-theft systems to ensure that only the owner can retrieve what is inside. The mailbox gives the user two options when unlocking R’Mailbox: facial recognition and fingerprint scanning. Security systems like these can significantly reduce the chances of package theft when the owner is not home.
+<br>
 
-The front of the mailbox will consist of two compartments, one for letter mail and one for bigger parcels. Both doors of the compartments will remain unlocked until mail/packages are placed inside and the doors are shut. At this point the R’mailbox will lock the relevant door(s) and send a text/email notification about the delivery. Our built in security measures will also come online.
+## Project Overview
 
-In order to open the locked doors, the owner must verify their identity using one of three methods. The first method is a fingerprint scanner powered by the Raspberry Pi. The second method is facial recognition using the Raspberry Pi and a camera. The third method is a “Request to Open” button which sends a text message to the owner’s phone asking for permission to open the doors. This final method also allows for multiple deliveries in one day. If the doors are already locked, the mailman can request that the door be opened to insert the additional package.
+R'mailbox is an IoT mailbox created by Thomas Chin, Noah Jimenez, Jacob Halvorson, Michael De Sousa, and Christian Grayson in the spring of 2020. 
+
+It is designed to be a "smart", secure container that can be used to send/receive mail and packages. The R'Mailbox uses IR sensors and a load cell to detect when mail has been placed inside of the main compartment. Once mail has been detected inside the compartment and the compartment door is closed, a servo automatically locks the door. From here, an SMS notification and email are automatically sent to the owner of the mailbox using [Twilio](https://www.twilio.com/). When the owner wants to open the R'mailbox and retrieve the mail inside, they can unlock the door with 3 unique authentication methods.
+
+First, the owner can press the "Request to Open" button on the R'mailbox. This will send an SMS request to the owner's phone. They can reply with "Yes" to remotely unlock the door, or "No" to keep it locked. Second, the owner can open the door using facial recognition. The R'mailbox has a built in camera and can register multiple different faces in its memory. When an authorized face is detected, the compartment door will automatically unlock. Finally, the owner can opt to open the door using a built in fingerprint scanner. The fingerprint scanner can register multiple different fingerprints and will unlock the door when an authorized fingerprint is detected, similar to the facial recognition.
+
+When the owner wants to send something, they can press press the "Outgoing Mail" button on the R'mailbox. They can then simply place their mail inside of the compartment and close the door. A servo will automatically lock the door to keep the outgoing mail secure. A second servo will automatically raise a mail flag on the side of the R'mailbox, to alert the postal worker when they arrive. The postal worker can use the previously mentioned "Request to Open" button to allow the R'mailbox owner to remotely open the door. An SMS notification and email are sent to the owner once the outgoing mail has been removed from the compartment. 
+
+The R'mailbox also has Amazon Alexa integration. At any point, the owner can use an Echo Dot or the Alexa app to ask Alexa about the status of the R'mailbox. They can ask if any mail has been delivered to the container, or if outgoing mail has been picked up. In either case, Alexa will ping the R'mailbox (using a Flask server) to figure out the status of the package sensors and answer the owner's question.
+
+A simple diagram of the system interfaces can be seen below: 
+
+![rmailbox_diagram](https://user-images.githubusercontent.com/22509729/119742026-c1e09180-be3b-11eb-9d0f-ecfbbb50c89b.png)
+
+<br>
+
+## Technologies Used
+
+Hardware:
+- Raspberry Pi 3B+
+- Raspberry Pi Zero W
+- Atmega1284 Microcontroller 
+- SG90 Servo Motor
+- AS608 Fingerprint Scanner
+- PiCamera
+- E18-D80NK IR Sensor
+- HX711 Load Cell + Amplifier
+
+Programming Languages:
+- Python
+- C
+
+Additional Tools:
+- Flask
+- TravisCI
+- Amazon Alexa Skills
+- SPI communication (between Raspberry Pi and Atmega1284)
+
+## Additional Documentation
+
+A detailed report of our project can be found [here](https://drive.google.com/file/d/1L6dqv_ulrA3YTHF-tuNcpjMuraq7k0kp/view?usp=sharing). It includes additional diagrams of our subsystems, a full Bill of Materials, a breakdown of our testing methodology, and much more.
