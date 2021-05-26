@@ -50,7 +50,7 @@ Programming Languages:
 - C
 
 Additional Tools:
-- Flask
+- Flask and FlaskAsk extension
 - TravisCI
 - Amazon Alexa Skills
 - SPI communication (between Raspberry Pi and Atmega1284)
